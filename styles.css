@@ -66,13 +66,9 @@ button.yes {
 button.no {
   top: 55%;
   right: 40%;
-
-  transition-property: top, right;
-  transition-duration: 200ms;
-  transition-timing-function: linear;
 }
 
-.falling-cat {
+.falling-object {
   position: fixed;
   width: 100px;
   height: 100px;

@@ -10,7 +10,7 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body onload="init()">
     <img id="invitation" class="invitation" src="./img/invitation.GIF" />
     <img
       id="success"
@@ -18,7 +18,8 @@
       style="opacity: 0%"
       src="./img/success.gif"
     />
-    <div id="text" class="text">Пойдёшь 14 Февраля есть суши?</div>
+    <div id="initialText" class="text">Пойдёшь 14 Февраля есть суши?</div>
+    <div id="successText" class="text" style="display: none">УРАААААА!</div>
     <button id="yes" class="yes" onclick="onAccept()">ДА</button>
     <button id="no" class="no" onmouseover="runAway()" tabindex="-1" disabled>
       НЕТ

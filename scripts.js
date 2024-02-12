@@ -1,38 +1,24 @@
-let POSITION_INDEX = -1;
+// Настройки
+
+// Время за которое передвигается кнопка
+// Должно быть числом
+const TRANSITION_DURATION = 200;
+
+// Позции на экране между которыми двигается кнопка
+// Должно быть массивом объектов с полями top и right со значением в виде строки.
 const POSITIONS = [
   { top: '55%', right: '80%' },
   { top: '15%', right: 'calc(50% - 50px)' },
   { top: '55%', right: '20%' },
 ];
 
-function runAway() {
-  const element = document.getElementById('no');
+// Количество падающих объектов
+// Должно быть числом
+const FALLING_OBJECTS_COUNT = 15;
 
-  POSITION_INDEX = (POSITION_INDEX + 1) % POSITIONS.length;
-
-  element.style.top = POSITIONS[POSITION_INDEX].top;
-  element.style.right = POSITIONS[POSITION_INDEX].right;
-  element.style.pointerEvents = 'none';
-
-  // Timeout should be equal to button.no transition-duration in ms
-  setTimeout(() => {
-    element.style.pointerEvents = 'all';
-  }, 200);
-}
-
-const FALLING_CATS = [
-  './img/sushi-cat-1.png',
-  './img/sushi-cat-2.png',
-  './img/sushi-cat-3.png',
-  './img/sushi-cat-4.png',
-  './img/sushi-cat-5.png',
-  './img/sushi-cat-6.png',
-  './img/sushi-cat-1.png',
-  './img/sushi-cat-2.png',
-  './img/sushi-cat-3.png',
-  './img/sushi-cat-4.png',
-  './img/sushi-cat-5.png',
-  './img/sushi-cat-6.png',
+// Список изображений для падающих объектов
+// Должен быть массивом ссылок на картинки в папке img
+const FALLING_OBJECTS = [
   './img/sushi-cat-1.png',
   './img/sushi-cat-2.png',
   './img/sushi-cat-3.png',
@@ -41,7 +27,30 @@ const FALLING_CATS = [
   './img/sushi-cat-6.png',
 ];
 
-const SUCCESS_TEXT = 'УРАААААА!';
+// Логика
+
+function init() {
+  const buttonNo = document.getElementById('no');
+  buttonNo.style.transitionProperty = 'top, right';
+  buttonNo.style.transitionDuration = `${TRANSITION_DURATION}ms`;
+  buttonNo.style.transitionTimingFunction = 'linear';
+}
+
+let POSITION_INDEX = -1;
+
+function runAway() {
+  const buttonNo = document.getElementById('no');
+
+  POSITION_INDEX = (POSITION_INDEX + 1) % POSITIONS.length;
+
+  buttonNo.style.top = POSITIONS[POSITION_INDEX].top;
+  buttonNo.style.right = POSITIONS[POSITION_INDEX].right;
+  buttonNo.style.pointerEvents = 'none';
+
+  setTimeout(() => {
+    buttonNo.style.pointerEvents = 'all';
+  }, TRANSITION_DURATION);
+}
 
 function onAccept() {
   const invitationImg = document.getElementById('invitation');
@@ -56,20 +65,27 @@ function onAccept() {
   const elementToShow = document.getElementById('success');
   elementToShow.style.opacity = '100%';
 
-  const textElement = document.getElementById('text');
-  textElement.textContent = SUCCESS_TEXT;
+  const initialText = document.getElementById('initialText');
+  initialText.style.display = 'none';
 
-  FALLING_CATS.forEach((fallingCat) => {
-    const fallingCatElement = document.createElement('div');
-    fallingCatElement.className = 'falling-cat';
-    fallingCatElement.style.backgroundImage = `url('${fallingCat}')`;
+  const successText = document.getElementById('successText');
+  successText.style.display = 'block';
 
-    const left = Math.floor(Math.random() * 90) + 5;
-    fallingCatElement.style.left = `${left}%`;
+  if (FALLING_OBJECTS.length > 0) {
+    for (let i = 0; i < FALLING_OBJECTS_COUNT; i++) {
+      const fallingObject = document.createElement('div');
+      fallingObject.className = 'falling-object';
 
-    const delay = Math.floor(Math.random() * 5000);
-    fallingCatElement.style.animationDelay = `${delay}ms`;
+      const objectIndex = i % FALLING_OBJECTS.length;
+      fallingObject.style.backgroundImage = `url('${FALLING_OBJECTS[objectIndex]}')`;
 
-    document.body.appendChild(fallingCatElement);
-  });
+      const left = Math.floor(Math.random() * 90) + 5;
+      fallingObject.style.left = `${left}%`;
+
+      const delay = Math.floor(Math.random() * 5000);
+      fallingObject.style.animationDelay = `${delay}ms`;
+
+      document.body.appendChild(fallingObject);
+    }
+  }
 }
