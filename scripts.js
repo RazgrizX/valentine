@@ -14,6 +14,7 @@ function runAway() {
   element.style.right = POSITIONS[POSITION_INDEX].right;
   element.style.pointerEvents = 'none';
 
+  // Timeout should be equal to button.no transition-duration in ms
   setTimeout(() => {
     element.style.pointerEvents = 'all';
   }, 200);
@@ -40,6 +41,8 @@ const FALLING_CATS = [
   './img/sushi-cat-6.png',
 ];
 
+const SUCCESS_TEXT = 'УРАААААА!';
+
 function onAccept() {
   const invitationImg = document.getElementById('invitation');
   invitationImg.style.opacity = '0%';
@@ -54,17 +57,19 @@ function onAccept() {
   elementToShow.style.opacity = '100%';
 
   const textElement = document.getElementById('text');
-  textElement.textContent = 'УРАААААА!';
+  textElement.textContent = SUCCESS_TEXT;
 
   FALLING_CATS.forEach((fallingCat) => {
     const fallingCatElement = document.createElement('div');
     fallingCatElement.className = 'falling-cat';
-    const left = Math.floor(Math.random() * 90) + 5;
-    const delay = Math.floor(Math.random() * 5000);
-
-    fallingCatElement.style.left = `${left}%`;
-    fallingCatElement.style.animationDelay = `${delay}ms`;
     fallingCatElement.style.backgroundImage = `url('${fallingCat}')`;
+
+    const left = Math.floor(Math.random() * 90) + 5;
+    fallingCatElement.style.left = `${left}%`;
+
+    const delay = Math.floor(Math.random() * 5000);
+    fallingCatElement.style.animationDelay = `${delay}ms`;
+
     document.body.appendChild(fallingCatElement);
   });
 }
