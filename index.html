@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Пошли есть суши!</title>
+    <link href="./styles.css" rel="stylesheet" />
+    <script src="./scripts.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <img id="invitation" class="invitation" src="./img/invitation.GIF" />
+    <img
+      id="success"
+      class="success"
+      style="opacity: 0%"
+      src="./img/success.gif"
+    />
+    <div id="text" class="text">Пойдёшь 14 Февраля есть суши?</div>
+    <button id="yes" class="yes" onclick="onAccept()">ДА</button>
+    <button id="no" class="no" onmouseover="runAway()" tabindex="-1" disabled>
+      НЕТ
+    </button>
+    <div class="falling-cat"></div>
+  </body>
+</html>
